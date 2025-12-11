@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주은교육 마케팅 보고서 2025-2026 Final Complete V5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* [CORE THEME & RESET] */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 40px 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* [SLIDE CONTAINER] */
+        .slide-container {
+            background-color: #FFFFFF;
+            width: 1280px;
+            height: 720px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 60px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .slide-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* [TYPOGRAPHY] */
+        h1,
+        h2,
+        h3 {
+            font-family: 'Nanum Gothic', sans-serif;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 60px;
+            font-weight: 800;
+            color: #191919;
+            letter-spacing: -1px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            color: #555;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        .slide-title {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: #191919;
+            border-left: 8px solid #03C75A;
+            padding-left: 25px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        p,
+        li,
+        td {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+            word-break: keep-all;
+        }
+
+        strong {
+            font-weight: 700;
+            color: #000;
+        }
+
+        /* [UTILITIES & LAYOUT] */
+        .highlight {
+            color: #03C75A;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+        }
+
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-center-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* [CARD STYLES] */
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            text-align: center;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(3, 199, 90, 0.15);
+            border-color: #03C75A;
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: #E8FAF0;
+            color: #03C75A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* [MIND MAP] */
+        .mindmap-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .center-node {
+            width: 180px;
+            height: 180px;
+            background: #03C75A;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            box-shadow: 0 0 0 10px rgba(3, 199, 90, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .branch-node {
+            position: absolute;
+            background: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #03C75A;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            white-space: nowrap;
+            z-index: 5;
+            font-size: 16px;
+        }
+
+        .mindmap-container.expanded .branch-node {
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0px rgba(3, 199, 90, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(3, 199, 90, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0px rgba(3, 199, 90, 0);
+            }
+        }
+
+        /* [BAR CHART] */
+        .chart-wrapper {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            padding: 50px 40px 20px 40px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        .bar-container {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .bar {
+            width: 60%;
+            background: #03C75A;
+            border-radius: 5px 5px 0 0;
+            height: 0;
+            transition: height 2.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+            position: relative;
+        }
+
+        .bar-label {
+            margin-top: 15px;
+            font-size: 15px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #03C75A;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.5s;
+            white-space: nowrap;
+        }
+
+        .bar-value.big-impact {
+            font-size: 36px;
+            top: -55px;
+            color: #03C75A;
+            text-shadow: 0 2px 10px rgba(3, 199, 90, 0.2);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .bar-container.active .bar-value {
+            opacity: 1;
+        }
+
+        /* [KEYWORD SLIDE] */
+        .slide-5-2-layout {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 20px;
+        }
+
+        .insight-feedback {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px 30px;
+            border-left: 10px solid #03C75A;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.6s ease;
+            height: 30%;
+        }
+
+        .insight-feedback.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feedback-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #03C75A;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feedback-content {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .data-row {
+            display: flex;
+            gap: 15px;
+            height: 70%;
+            width: 100%;
+            align-items: flex-end;
+        }
+
+        .data-col {
+            flex: 1;
+            background: #fff;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            overflow: hidden;
+            height: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: height 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .data-col.visible {
+            height: 100%;
+        }
+
+        .col-header {
+            padding: 12px;
+            color: white;
+            text-align: center;
+            font-weight: 800;
+            font-size: 18px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .col-content {
+            padding: 15px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .kw-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f5f5f5;
+            padding: 8px 0;
+        }
+
+        .kw-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .kw-percent {
+            font-size: 14px;
+            font-weight: 800;
+            color: #333;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .bg-nov {
+            background: #03C75A;
+        }
+
+        .bg-oct {
+            background: #555;
+        }
+
+        .bg-sep {
+            background: #E1306C;
+        }
+
+        .bg-aug {
+            background: #FFC107;
+            color: #333;
+        }
+
+        /* [STRATEGY CARDS] */
+        .card-red {
+            border-top: 6px solid #FF5A5F;
+        }
+
+        .card-red .card-icon {
+            color: #FF5A5F;
+            background: #FFF0F1;
+        }
+
+        .card-blue {
+            border-top: 6px solid #007AFF;
+        }
+
+        .card-blue .card-icon {
+            color: #007AFF;
+            background: #F0F8FF;
+        }
+
+        .card-green {
+            border-top: 6px solid #03C75A;
+        }
+
+        .card-green .card-icon {
+            color: #03C75A;
+            background: #E8FAF0;
+        }
+
+        .action-plan {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #eee;
+            text-align: left;
+            width: 100%;
+        }
+
+        .action-plan ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .action-plan li {
+            margin-bottom: 5px;
+            list-style-type: disc;
+        }
+
+        /* [KPI SCORECARD STYLES] */
+        .kpi-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .kpi-header {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .kpi-icon {
+            font-size: 50px;
+            margin-bottom: 25px;
+        }
+
+        .kpi-list {
+            width: 100%;
+            text-align: center;
+        }
+
+        .kpi-item {
+            padding: 15px 10px;
+            border-bottom: 1px solid #f5f5f5;
+            font-size: 18px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .kpi-item:last-child {
+            border-bottom: none;
+        }
+
+        .kpi-blog {
+            border-top: 8px solid #03C75A;
+        }
+
+        .kpi-blog .kpi-header,
+        .kpi-blog .kpi-icon {
+            color: #03C75A;
+        }
+
+        .kpi-insta {
+            border-top: 8px solid #E1306C;
+        }
+
+        .kpi-insta .kpi-header,
+        .kpi-insta .kpi-icon {
+            color: #E1306C;
+        }
+
+        .kpi-youtube {
+            border-top: 8px solid #FF0000;
+        }
+
+        .kpi-youtube .kpi-header,
+        .kpi-youtube .kpi-icon {
+            color: #FF0000;
+        }
+
+        /* Timeline */
+        .timeline-wrapper {
+            position: relative;
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        .timeline-track {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #eee;
+            border-radius: 10px;
+            z-index: 0;
+        }
+
+        .timeline-track-fill {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 0%;
+            height: 6px;
+            background: #03C75A;
+            border-radius: 10px;
+            z-index: 0;
+            transition: width 1.5s ease-out;
+        }
+
+        .timeline-nodes {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .t-node {
+            background: white;
+            border: 3px solid #03C75A;
+            border-radius: 16px;
+            padding: 20px;
+            width: 23%;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+
+        .t-node.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* [SECTION & TITLE SLIDES] */
+        .section-slide {
+            background: linear-gradient(135deg, #03C75A 0%, #02b04f 100%);
+            text-align: center;
+            justify-content: center;
+        }
+
+        .section-slide h2 {
+            color: white;
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .section-slide p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 24px;
+        }
+
+        /* Last Slide */
+        .last-slide {
+            background: #191919;
+            text-align: center;
+            color: white;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title (English Restored + Korean) -->
+    <div class="slide-container" style="text-align: center; justify-content: center;" id="slide1">
+        <h2
+            style="font-size: 72px; color: #03C75A; margin-bottom: 20px; font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: 2px;">
+            MARKETING</h2>
+        <h1 style="margin-bottom: 40px; font-size: 48px; line-height: 1.4;">2025년도 마케팅 성과 보고 및<br>2026년도 사업계획안</h1>
+        <div
+            style="margin-top: 30px; width: 100px; height: 8px; background: #03C75A; margin-left: auto; margin-right: auto;">
+        </div>
+        <div style="margin-top: auto; padding-bottom: 20px; font-size: 24px; font-weight: 700; color: #555;">주은교육(주)
+        </div>
+    </div>
+
+    <!-- Slide 2: 2025 Section Cover -->
+    <div class="slide-container section-slide" id="slide2">
+        <div>
+            <h2>2025 MARKETING REVIEW</h2>
+            <p>성과 중심의 실행과 가맹원 성장 입증</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: 2025 Performance Overview -->
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">2025 전국 가맹원 마케팅 성과</h2>
+        <div class="flex-center-content">
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h3>전국 59개 가맹원</h3>
+                    <p style="margin-top: 15px;">통합 마케팅 패키지 100% 이행<br>브랜드 아이덴티티 통일 완료</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-ranking-star"></i></div>
+                    <h3>SEO 점유율 확대</h3>
+                    <p style="margin-top: 15px;">지역명+피아노/미술학원<br><strong class="highlight">N사 블로그 탭 상위 장악</strong></p>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>매출 전환 입증</h3>
+                    <p style="margin-top: 15px;">블로그 유입 → 상담 → <strong>원생 등록</strong><br>가시적 성과 창출 모델 확인</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Interactive Mind Map (Scroll Triggered) -->
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">실제 등록 효과 입증 지점</h2>
+        <div class="flex-center-content">
+            <div class="mindmap-container" id="mindmap">
+                <div class="center-node">
+                    <i class="fa-solid fa-circle-check" style="font-size: 40px; margin-bottom: 10px;"></i>
+                    <h3>성공 사례</h3>
+                </div>
+                <!-- Left Side -->
+                <div class="branch-node" style="--x: -280px; --y: 0px;">📍 부산 신호</div>
+                <div class="branch-node" style="--x: -240px; --y: -80px;">📍 수원 효행</div>
+                <div class="branch-node" style="--x: -240px; --y: 80px;">📍 세담</div>
+                <div class="branch-node" style="--x: -320px; --y: -140px;">📍 상계동명</div>
+                <div class="branch-node" style="--x: -320px; --y: 140px;">📍 안산 청룡</div>
+                <!-- Right Side -->
+                <div class="branch-node" style="--x: 280px; --y: 0px;">📍 양산 평산</div>
+                <div class="branch-node" style="--x: 240px; --y: -80px;">📍 포항 유강</div>
+                <div class="branch-node" style="--x: 240px; --y: 80px;">📍 한라</div>
+                <div class="branch-node" style="--x: 320px; --y: -140px;">📍 여고즐거운</div>
+                <div class="branch-node" style="--x: 320px; --y: 140px;">📍 평산셀라</div>
+                <!-- Bottom Outliers -->
+                <div class="branch-node" style="--x: -120px; --y: 180px;">📍 광주 수현</div>
+                <div class="branch-node" style="--x: 120px; --y: 180px;">📍 이호</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Official Channels -->
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title">2025 공식 채널 운영 성과</h2>
+        <div class="flex-center-content">
+            <div class="grid-2" style="gap: 30px;">
+                <div class="flex-col" style="gap: 25px; justify-content: center; height: 100%;">
+                    <div class="card"
+                        style="align-items: flex-start; text-align: left; padding: 35px; min-height: auto; flex:1;">
+                        <h3 style="margin-bottom: 15px; font-size: 26px;"><i class="fa-solid fa-n"
+                                style="color: #03C75A; margin-right: 15px;"></i>공식 블로그</h3>
+                        <p style="font-size: 18px; margin-bottom: 8px;"><strong>• 아르떼하이/지:</strong> 창업, 전자악기 키워드 선점</p>
+                        <p style="font-size: 18px; margin-bottom: 8px;"><strong>• 자격증 정보:</strong> 전문성 기반 유입량 증대</p>
+                        <p style="font-size: 18px;"><strong>• 시니어/유아:</strong> 타겟 맞춤 콘텐츠 최적화</p>
+                    </div>
+                    <div class="card"
+                        style="align-items: flex-start; text-align: left; padding: 35px; min-height: auto; flex:1;">
+                        <h3 style="margin-bottom: 15px; font-size: 26px;"><i class="fa-brands fa-instagram"
+                                style="color: #E1306C; margin-right: 15px;"></i>공식 인스타그램</h3>
+                        <p style="font-size: 18px; margin-bottom: 8px;"><strong>• 비주얼 스토리텔링:</strong> 창업/레슨 현장 시각화</p>
+                        <p style="font-size: 18px;"><strong>• 검색 연동:</strong> 블로그 연계 해시태그 전략</p>
+                    </div>
+                </div>
+                <div class="card" style="padding: 0; overflow: hidden; height: 100%; min-height: 400px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/15121118666964432415"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5-1: Bar Chart (Slow Tension Animation) -->
+    <div class="slide-container" id="slide5-1">
+        <h2 class="slide-title">공식 채널 월간 방문자 추이</h2>
+        <div class="flex-center-content">
+            <div class="chart-wrapper" id="barChart"></div>
+            <p style="text-align: center; font-size: 24px; margin-top: 30px; color: #555;">
+                본사 채널 가동 후 방문자 <span style="font-size: 32px; font-weight: 800; color: #03C75A;">2,100% 상승</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 5-2: Keyword Analysis -->
+    <div class="slide-container" id="slide5-2">
+        <h2 class="slide-title">월간 주요 키워드 유입 분석 및 인사이트</h2>
+        <div class="slide-5-2-layout">
+
+            <!-- Top: Marketing Strategy Feedback -->
+            <div class="insight-feedback" id="feedbackCard">
+                <div class="feedback-title"><i class="fa-solid fa-crosshairs"></i> 마케팅팀 전략적 타겟팅 성과</div>
+                <div class="feedback-content">
+                    "월별 주요 유입 키워드의 변화는 <strong>마케팅팀의 주력 공략 키워드 변화</strong>에 따라 의도된 결과입니다.<br>
+                    <strong>8~9월 시니어 → 10월 자격증 → 11월 전자악기</strong>로 이어지는 유입 트렌드는<br>
+                    각 시기별 전략적 콘텐츠 배포가 실제 트래픽으로 직결되었음을 증명합니다."
+                </div>
+            </div>
+
+            <!-- Bottom: Monthly Data Columns -->
+            <div class="data-row" id="kwCols">
+
+                <!-- Nov -->
+                <div class="data-col">
+                    <div class="col-header bg-nov">11월</div>
+                    <div class="col-content">
+                        <div class="kw-row"><span class="kw-text">전자악기</span><span class="kw-percent"><span
+                                    class="counter" data-target="5.81">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">요즘 뜨는 자격증</span><span class="kw-percent"><span
+                                    class="counter" data-target="5.06">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">음악학원창업</span><span class="kw-percent"><span
+                                    class="counter" data-target="4.65">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">요즘뜨는자격증</span><span class="kw-percent"><span
+                                    class="counter" data-target="2.73">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">전자드럼</span><span class="kw-percent"><span
+                                    class="counter" data-target="2.67">0</span>%</span></div>
+                    </div>
+                </div>
+
+                <!-- Oct -->
+                <div class="data-col">
+                    <div class="col-header bg-oct">10월</div>
+                    <div class="col-content">
+                        <div class="kw-row"><span class="kw-text">따기쉬운자격증</span><span class="kw-percent"><span
+                                    class="counter" data-target="7.76">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">미술프랜차이즈</span><span class="kw-percent"><span
+                                    class="counter" data-target="4.20">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">요즘뜨는자격증</span><span class="kw-percent"><span
+                                    class="counter" data-target="3.56">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">스마트드럼</span><span class="kw-percent"><span
+                                    class="counter" data-target="3.50">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">음악프랜차이즈</span><span class="kw-percent"><span
+                                    class="counter" data-target="2.80">0</span>%</span></div>
+                    </div>
+                </div>
+
+                <!-- Sep -->
+                <div class="data-col">
+                    <div class="col-header bg-sep">9월</div>
+                    <div class="col-content">
+                        <div class="kw-row"><span class="kw-text">노인여가활동</span><span class="kw-percent"><span
+                                    class="counter" data-target="4.71">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">웰에이징</span><span class="kw-percent"><span
+                                    class="counter" data-target="4.71">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">스마트드럼</span><span class="kw-percent"><span
+                                    class="counter" data-target="4.29">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">시니어취미생활</span><span class="kw-percent"><span
+                                    class="counter" data-target="2.43">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">치매예방운동</span><span class="kw-percent"><span
+                                    class="counter" data-target="2.43">0</span>%</span></div>
+                    </div>
+                </div>
+
+                <!-- Aug -->
+                <div class="data-col">
+                    <div class="col-header bg-aug">8월</div>
+                    <div class="col-content">
+                        <div class="kw-row"><span class="kw-text">노인여가활동</span><span class="kw-percent"><span
+                                    class="counter" data-target="12.57">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">노인여가생활</span><span class="kw-percent"><span
+                                    class="counter" data-target="12.04">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">스마트드럼</span><span class="kw-percent"><span
+                                    class="counter" data-target="6.28">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">노인 취미 활동</span><span class="kw-percent"><span
+                                    class="counter" data-target="3.66">0</span>%</span></div>
+                        <div class="kw-row"><span class="kw-text">음악프랜차이즈</span><span class="kw-percent"><span
+                                    class="counter" data-target="2.80">0</span>%</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: 2026 Section Cover -->
+    <div class="slide-container section-slide" id="slide6">
+        <div>
+            <h2>2026 STRATEGIC VISION</h2>
+            <p>디지털 점유율 확장 및 플랫폼 다각화</p>
+        </div>
+    </div>
+
+    <!-- Slide 7: Blog Strategy -->
+    <div class="slide-container" id="slide7">
+        <h2 class="slide-title"><i class="fa-solid fa-square-n" style="color: #03C75A;"></i> 2026 블로그 상위노출 고도화</h2>
+        <div class="flex-center-content">
+            <div class="grid-3">
+                <div class="card card-red">
+                    <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 style="margin-bottom: 5px;">고강도 경쟁 키워드 점유</h3>
+                    <p style="font-size: 15px;">따기 쉬운 자격증, 음악학원 창업 등</p>
+                    <div class="action-plan">
+                        <ul>
+                            <li><strong>전략 키워드:</strong> 시니어 취미 추천, 전자드럼 레슨 등 고부가가치 타겟팅</li>
+                            <li><strong>구조 최적화:</strong> 검색 로직에 맞춘 콘텐츠 생산 시스템 고도화</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card card-blue">
+                    <div class="card-icon"><i class="fa-solid fa-project-diagram"></i></div>
+                    <h3 style="margin-bottom: 5px;">시멘틱 클러스터링</h3>
+                    <p style="font-size: 15px;">콘텐츠 생산 구조의 체계화</p>
+                    <div class="action-plan">
+                        <ul>
+                            <li><strong>의미 기반 연결:</strong> 메인 키워드와 연관된 서브 주제를 유기적으로 연결</li>
+                            <li><strong>사일로 구조:</strong> 주제별 전문성을 강조하여 블로그 지수 동반 상승 유도</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card card-green">
+                    <div class="card-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3 style="margin-bottom: 5px;">초지역 밀착형 침투</h3>
+                    <p style="font-size: 15px;">"지역명 + 학원" 커버리지 확대</p>
+                    <div class="action-plan">
+                        <ul>
+                            <li><strong>개별 연동:</strong> 가맹원 별 특화 키워드와 본사 콘텐츠의 연동 강화</li>
+                            <li><strong>전지점 확대:</strong> 전 가맹원 대상 지역 키워드 상위노출 점유율 극대화</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Instagram Strategy -->
+    <div class="slide-container" id="slide8">
+        <h2 class="slide-title"><i class="fa-brands fa-instagram" style="color: #E1306C;"></i> 2026 인스타그램 성과 강화</h2>
+        <div class="flex-center-content">
+            <div class="grid-2">
+                <div class="card" style="padding: 0; overflow: hidden; height: 100%; min-height: 400px;">
+                    <img src="http://googleusercontent.com/image_collection/image_retrieval/2735679757113301564"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="flex-col" style="justify-content: center; height: 100%;">
+                    <h3 style="font-size: 32px; color: #03C75A; margin-bottom: 20px;">공동 제작 및 숏폼 전략</h3>
+                    <div
+                        style="background: white; padding: 25px; margin-bottom: 20px; border-left: 5px solid #E1306C; box-shadow: 0 5px 10px rgba(0,0,0,0.05);">
+                        <strong>🎵 콘텐츠 협업 파이프라인</strong>
+                        <div class="action-plan"
+                            style="border-top: 1px dashed #ddd; margin-top: 10px; padding-top: 10px;">
+                            <ul>
+                                <li><strong>공동 제작:</strong> 인스타그램 콘텐츠 팀과 협업 체계 구축</li>
+                                <li><strong>Reel 중심:</strong> 짧고 임팩트 있는 스마트 악기 연주 영상 시리즈화</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div
+                        style="background: white; padding: 25px; margin-bottom: 20px; border-left: 5px solid #E1306C; box-shadow: 0 5px 10px rgba(0,0,0,0.05);">
+                        <strong>⚡ 가치 제안형 콘텐츠</strong>
+                        <div class="action-plan"
+                            style="border-top: 1px dashed #ddd; margin-top: 10px; padding-top: 10px;">
+                            <ul>
+                                <li><strong>핵심 소재:</strong> 실사용자 리뷰, 레슨 가능 악기, 제품 장점 요약</li>
+                                <li><strong>리치 최적화:</strong> 해시태그 및 키워드 매뉴얼 정비를 통한 도달 확대</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: YouTube Strategy -->
+    <div class="slide-container" id="slide9">
+        <h2 class="slide-title"><i class="fa-brands fa-youtube" style="color: #FF0000;"></i> 2026 유튜브 공식 런칭</h2>
+        <div class="flex-center-content">
+            <div class="grid-3" style="height: auto; align-items: start;">
+                <div class="card" style="min-height: 280px;">
+                    <h3 style="color: #333; margin-bottom: 15px;">아르떼하이 (창업)</h3>
+                    <div class="action-plan" style="border-top: none; padding-top: 0;">
+                        <ul>
+                            <li><strong>학원창업 로드맵:</strong> 예비 원장님을 위한 가이드</li>
+                            <li><strong>가맹원 인터뷰:</strong> 실제 운영 스토리와 성공 사례</li>
+                            <li><strong>스토리텔링:</strong> 성장 사례 기반의 신뢰 콘텐츠</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card" style="min-height: 280px;">
+                    <h3 style="color: #333; margin-bottom: 15px;">아르떼지 (제품)</h3>
+                    <div class="action-plan" style="border-top: none; padding-top: 0;">
+                        <ul>
+                            <li><strong>연주 콘텐츠:</strong> 스마트드럼/피아노 실제 연주</li>
+                            <li><strong>기능 가이드:</strong> 제품별 상세 기능 설명 및 비교</li>
+                            <li><strong>사용법 교육:</strong> 구매자를 위한 튜토리얼</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card" style="min-height: 280px;">
+                    <h3 style="color: #333; margin-bottom: 15px;">체험단 (소셜프루프)</h3>
+                    <div class="action-plan" style="border-top: none; padding-top: 0;">
+                        <ul>
+                            <li><strong>참여 영상:</strong> 유아 및 시니어 체험단 활동 모습</li>
+                            <li><strong>신뢰 콘텐츠:</strong> 실제 반응과 후기를 담은 리얼 영상</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="margin-top: 30px; width: 100%; background: #fff; padding: 25px; border-radius: 15px; border: 1px solid #ddd; display: flex; align-items: center; gap: 20px;">
+                <div
+                    style="background: #FF0000; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">
+                    <i class="fa-solid fa-gears"></i></div>
+                <div>
+                    <h4 style="margin: 0 0 5px 0; font-size: 18px;">운영 필수 조건 및 통합 관리</h4>
+                    <p style="margin: 0; font-size: 15px; color: #666;">
+                        • <strong>전담 인력 충원:</strong> 촬영/편집/기획 전문 인력 확보 | • <strong>콘텐츠 양산:</strong> 월 8~12편 정기 출시 목표 | •
+                        <strong>통합 KPI:</strong> 블로그/인스타/체험단과의 유기적 연동 관리
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Franchise Package Upgrade -->
+    <div class="slide-container" id="slide10">
+        <h2 class="slide-title">2026 가맹 마케팅 패키지 업그레이드</h2>
+        <div class="flex-center-content">
+            <div class="grid-2">
+                <!-- Card 1: Local SEO -->
+                <div class="card" style="border-top: 8px solid #03C75A;">
+                    <div class="card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h3 style="font-size: 28px; margin-bottom: 20px;">지역 상권 장악 (Hyper-Local)</h3>
+                    <p style="text-align: center; color: #555; margin-bottom: 25px;">
+                        가맹원별 <strong>'동네 키워드'</strong> 독점 전략<br>
+                        상위노출 유지 및 커버리지 확장
+                    </p>
+                    <div
+                        style="background: #E8FAF0; padding: 15px 20px; border-radius: 10px; color: #03C75A; font-weight: 700;">
+                        "개별 가맹원 키워드 100% 연동"
+                    </div>
+                </div>
+
+                <!-- Card 2: Performance Model -->
+                <div class="card" style="border-top: 8px solid #FFC107;">
+                    <div class="card-icon" style="color: #FFC107; background: #FFF8E1;"><i
+                            class="fa-solid fa-handshake-simple"></i></div>
+                    <h3 style="font-size: 28px; margin-bottom: 20px;">성과 보상형 모델 도입</h3>
+                    <p style="text-align: center; color: #555; margin-bottom: 25px;">
+                        단순 노출이 아닌 <strong>'실질적 성과'</strong> 중심<br>
+                        상담·등록 전환율 기반 보상 체계 검토
+                    </p>
+                    <div
+                        style="background: #FFF8E1; padding: 15px 20px; border-radius: 10px; color: #FFA000; font-weight: 700;">
+                        "본사-가맹점 동반 성장 구조"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: KPI System -->
+    <div class="slide-container" id="slide11">
+        <h2 class="slide-title">KPI 체계 명확화 및 성과 지표</h2>
+        <div class="flex-center-content">
+            <div class="grid-3">
+                <!-- Blog KPI -->
+                <div class="kpi-card kpi-blog">
+                    <div class="kpi-icon"><i class="fa-solid fa-n"></i></div>
+                    <div class="kpi-header">BLOG</div>
+                    <div class="kpi-list">
+                        <div class="kpi-item">상위노출 키워드 수</div>
+                        <div class="kpi-item">검색 유입 증가율</div>
+                        <div class="kpi-item"><strong>가맹원 등록 기여도</strong></div>
+                    </div>
+                </div>
+
+                <!-- Insta KPI -->
+                <div class="kpi-card kpi-insta">
+                    <div class="kpi-icon"><i class="fa-brands fa-instagram"></i></div>
+                    <div class="kpi-header">INSTAGRAM</div>
+                    <div class="kpi-list">
+                        <div class="kpi-item">콘텐츠 도달률 (Reach)</div>
+                        <div class="kpi-item">팔로워 순증가</div>
+                        <div class="kpi-item"><strong>링크 통한 상담 유입</strong></div>
+                    </div>
+                </div>
+
+                <!-- YouTube KPI -->
+                <div class="kpi-card kpi-youtube">
+                    <div class="kpi-icon"><i class="fa-brands fa-youtube"></i></div>
+                    <div class="kpi-header">YOUTUBE</div>
+                    <div class="kpi-list">
+                        <div class="kpi-item">구독자 수</div>
+                        <div class="kpi-item">평균 시청 지속 시간</div>
+                        <div class="kpi-item"><strong>창업·가맹 문의 전환</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Franchise KPI -->
+            <div
+                style="margin-top: 30px; width: 100%; background: #333; color: white; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 20px; font-weight: 700; padding-left: 20px;"><i class="fa-solid fa-gift"
+                        style="margin-right: 10px;"></i> 가맹 패키지 KPI</div>
+                <div style="display: flex; gap: 40px; padding-right: 30px;">
+                    <span style="font-size: 18px;">가맹원 만족도 점수</span>
+                    <span style="font-size: 18px; color: #FFC107;">신규 등록 사례 수 (핵심)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Roadmap -->
+    <div class="slide-container" id="slide12">
+        <h2 class="slide-title">2026 연간 로드맵 (Execution Timeline)</h2>
+        <div class="flex-center-content">
+            <div class="timeline-wrapper" id="timeline">
+                <div class="timeline-track"></div>
+                <div class="timeline-track-fill" id="track-fill"></div>
+                <div class="timeline-nodes">
+                    <div class="t-node">
+                        <h3>Q1. 기반 구축</h3>
+                        <p style="font-size: 14px; color: #666; margin-top: 5px;">Foundation</p>
+                        <div style="text-align: left; margin-top: 15px; padding-left: 10px; font-size: 14px;">
+                            • 유튜브 채널 공식 오픈<br>
+                            • 미디어 전담팀 구축<br>
+                            • 키워드 클러스터 재설계
+                        </div>
+                    </div>
+                    <div class="t-node">
+                        <h3>Q2. 확산 및 침투</h3>
+                        <p style="font-size: 14px; color: #666; margin-top: 5px;">Expansion</p>
+                        <div style="text-align: left; margin-top: 15px; padding-left: 10px; font-size: 14px;">
+                            • 숏폼 콘텐츠 대량 확산<br>
+                            • 체험단 마케팅 본격화<br>
+                            • 가맹 패키지 2.0 적용
+                        </div>
+                    </div>
+                    <div class="t-node">
+                        <h3>Q3. 성과 극대화</h3>
+                        <p style="font-size: 14px; color: #666; margin-top: 5px;">Performance</p>
+                        <div style="text-align: left; margin-top: 15px; padding-left: 10px; font-size: 14px;">
+                            • 주요 키워드 상위 랭킹<br>
+                            • 유튜브 구독자 목표 달성<br>
+                            • 가맹 상담 시즌 집중 공략
+                        </div>
+                    </div>
+                    <div class="t-node">
+                        <h3>Q4. 평가 및 도약</h3>
+                        <p style="font-size: 14px; color: #666; margin-top: 5px;">Next Step</p>
+                        <div style="text-align: left; margin-top: 15px; padding-left: 10px; font-size: 14px;">
+                            • 연간 ROI 성과 분석<br>
+                            • 베스트 가맹원 어워드<br>
+                            • 2027 글로벌 전략 수립
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 13: Thank You -->
+    <div class="slide-container last-slide" id="slide13">
+        <h1 style="color: white; font-size: 80px; margin-bottom: 20px;">감사합니다</h1>
+        <p style="color: #03C75A; font-size: 32px; font-weight: 700;">마케팅팀</p>
+        <div style="margin-top: 50px; opacity: 0.7; font-size: 18px;">2025 Marketing Performance & 2026 Vision</div>
+    </div>
+
+    <script>
+        // Data for Bar Chart
+        const chartData = [
+            { label: '6월', value: 55, color: 'rgba(3, 199, 90, 0.2)' },
+            { label: '7월', value: 35, color: 'rgba(3, 199, 90, 0.3)' },
+            { label: '8월', value: 181, color: 'rgba(3, 199, 90, 0.5)' },
+            { label: '9월', value: 810, color: 'rgba(3, 199, 90, 0.7)' },
+            { label: '10월', value: 1141, color: 'rgba(3, 199, 90, 0.85)' },
+            { label: '11월', value: 1229, color: '#03C75A' }
+        ];
+
+        const maxVal = 1400;
+
+        function renderBarChart() {
+            const container = document.getElementById('barChart');
+            container.innerHTML = '';
+
+            chartData.forEach((data, index) => {
+                const barContainer = document.createElement('div');
+                barContainer.className = 'bar-container';
+
+                // Value Label (On Top)
+                const val = document.createElement('div');
+                val.className = 'bar-value';
+                val.innerText = 0; // Start at 0 for animation
+                if (data.label === '11월') val.classList.add('big-impact');
+
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.backgroundColor = data.color;
+                bar.style.height = '0%';
+
+                const lbl = document.createElement('div');
+                lbl.className = 'bar-label';
+                lbl.innerText = data.label;
+
+                barContainer.appendChild(val);
+                barContainer.appendChild(bar);
+                barContainer.appendChild(lbl);
+                container.appendChild(barContainer);
+
+                setTimeout(() => {
+                    const hPercent = (data.value / maxVal) * 85;
+                    bar.style.height = hPercent + '%';
+                    barContainer.classList.add('active');
+
+                    // Animate Value counting
+                    animateValue(val, 0, data.value, 2500); // 2.5s duration
+                }, 200 + (index * 150));
+            });
+        }
+
+        // Custom Value Animation Function
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // [MIND MAP LOGIC - SCROLL TRIGGERED]
+        function expandMindMap() {
+            const container = document.getElementById('mindmap');
+            const nodes = document.querySelectorAll('.branch-node');
+            container.classList.add('expanded');
+            nodes.forEach((node, index) => {
+                const x = node.style.getPropertyValue('--x');
+                const y = node.style.getPropertyValue('--y');
+                setTimeout(() => {
+                    node.style.transform = `translate(${x}, ${y}) scale(1)`;
+                }, index * 50);
+            });
+        }
+
+        function collapseMindMap() {
+            const container = document.getElementById('mindmap');
+            const nodes = document.querySelectorAll('.branch-node');
+            container.classList.remove('expanded');
+            nodes.forEach(node => {
+                node.style.transform = `translate(0, 0) scale(0)`;
+            });
+        }
+
+        // [KEYWORD COUNTER]
+        let countersAnimated = false;
+        function animateCounters() {
+            if (countersAnimated) return;
+            countersAnimated = true;
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseFloat(counter.getAttribute('data-target'));
+                const duration = 1500;
+                const start = 0;
+                const startTime = performance.now();
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = 1 - Math.pow(1 - progress, 4);
+                    const currentVal = start + (target - start) * ease;
+                    counter.innerText = currentVal.toFixed(2);
+                    if (progress < 1) requestAnimationFrame(update);
+                    else counter.innerText = target.toFixed(2);
+                }
+                requestAnimationFrame(update);
+            });
+        }
+        function resetCounters() {
+            countersAnimated = false;
+            document.querySelectorAll('.counter').forEach(c => c.innerText = '0');
+        }
+
+        // [TIMELINE]
+        function animateTimeline() {
+            const fill = document.getElementById('track-fill');
+            const nodes = document.querySelectorAll('.t-node');
+            setTimeout(() => { fill.style.width = '100%'; }, 500);
+            nodes.forEach((node, index) => {
+                setTimeout(() => {
+                    node.classList.add('active');
+                }, 800 + (index * 400));
+            });
+        }
+        function resetTimeline() {
+            document.getElementById('track-fill').style.width = '0%';
+            document.querySelectorAll('.t-node').forEach(n => n.classList.remove('active'));
+        }
+
+        // [KEYWORD SEQUENCE]
+        function animateKeywords() {
+            const cols = document.querySelectorAll('.data-col');
+            const feedbackCard = document.getElementById('feedbackCard');
+            setTimeout(() => { feedbackCard.classList.add('show'); }, 200);
+            setTimeout(() => {
+                cols.forEach((col, idx) => {
+                    setTimeout(() => col.classList.add('visible'), idx * 200);
+                });
+                animateCounters();
+            }, 800);
+        }
+        function resetKeywords() {
+            document.getElementById('feedbackCard').classList.remove('show');
+            document.querySelectorAll('.data-col').forEach(c => c.classList.remove('visible'));
+            resetCounters();
+        }
+
+        // [SLIDE OBSERVER]
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.id === 'slide4') expandMindMap();
+                        if (entry.target.id === 'slide5-1') renderBarChart();
+                        if (entry.target.id === 'slide5-2') animateKeywords();
+                        if (entry.target.id === 'slide12') animateTimeline();
+                    } else {
+                        if (entry.target.id === 'slide4') collapseMindMap();
+                        if (entry.target.id === 'slide5-1') {
+                            const bars = entry.target.querySelectorAll('.bar');
+                            bars.forEach(b => b.style.height = '0%');
+                            entry.target.querySelectorAll('.bar-container').forEach(c => c.classList.remove('active'));
+                        }
+                        if (entry.target.id === 'slide5-2') resetKeywords();
+                        if (entry.target.id === 'slide12') resetTimeline();
+                    }
+                });
+            }, { threshold: 0.2 });
+            document.querySelectorAll('.slide-container').forEach(slide => observer.observe(slide));
+        });
+    </script>
+</body>
+
+</html>
